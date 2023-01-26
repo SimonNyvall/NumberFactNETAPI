@@ -17,7 +17,7 @@ public class FactAPI
 
     public async Task<FactData[]> GetAll()
     {
-        Uri uri = new(_httpClient.BaseAddress, "/ShowAllFacts");
+        Uri uri = new(_httpClient.BaseAddress!, "/ShowAllFacts");
 
         HttpResponseMessage response = await _httpClient.GetAsync(uri);
 
@@ -33,7 +33,7 @@ public class FactAPI
 
     public async Task<FactData> GetById(int id)
     {
-        Uri uri = new(_httpClient.BaseAddress, "/GetFactById/" + id);
+        Uri uri = new(_httpClient.BaseAddress!, "/GetFactById/" + id);
 
         HttpResponseMessage response = await _httpClient.GetAsync(uri);
 
@@ -44,12 +44,12 @@ public class FactAPI
 
         string json = await response.Content.ReadAsStringAsync();
 
-        return JsonConvert.DeserializeObject<FactData>(json);
+        return JsonConvert.DeserializeObject<FactData>(json)!;
     }
 
     public HttpStatusCode Add(FactData factData)
     {
-        Uri uri = new(_httpClient.BaseAddress, "/AddFact");
+        Uri uri = new(_httpClient.BaseAddress!, "/AddFact");
 
         HttpResponseMessage response = _httpClient.PostAsJsonAsync(uri, factData).Result;
 
@@ -58,7 +58,7 @@ public class FactAPI
 
     public HttpStatusCode AddRandomFact()
     {
-        Uri uri = new(_httpClient.BaseAddress, "AddRandomFact");
+        Uri uri = new(_httpClient.BaseAddress!, "/AddRandomFact");
 
         HttpResponseMessage response = _httpClient.PostAsync(uri, null).Result;
 
@@ -67,7 +67,7 @@ public class FactAPI
 
     public HttpStatusCode UpdateFact(FactData factData, int id)
     {
-        Uri uri = new(_httpClient.BaseAddress, "/UpdateFact" + id);
+        Uri uri = new(_httpClient.BaseAddress!, "/UpdateFact" + id);
 
         HttpResponseMessage response = _httpClient.PutAsJsonAsync(uri, factData).Result;
 
@@ -76,7 +76,7 @@ public class FactAPI
 
     public HttpStatusCode DeleteFact(int id)
     {
-        Uri uri = new(_httpClient.BaseAddress, "DeleteFactById" + id);
+        Uri uri = new(_httpClient.BaseAddress!, "/DeleteFactById" + id);
 
         HttpResponseMessage response = _httpClient.DeleteAsync(uri).Result;
 
