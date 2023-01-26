@@ -35,47 +35,30 @@ app.MapGet("/GetFactById/", async (FactAPI api, int id) =>
 
 app.MapPost("/AddFact", (FactAPI api, FactData factdata) =>
 {
-    if (api.Add(factdata) == HttpStatusCode.OK)
-    {
-        return Results.Created("/AddFact", factdata);
-    }
-    
-    return Results.BadRequest();
+    if (!(api.Add(factdata) == HttpStatusCode.OK)) return Results.BadRequest();
+   
+    return Results.Created("/AddFact", factdata); 
 });
 
 app.MapPost("/AddRandomFact", (FactAPI api) =>
 {
-    if (api.AddRandomFact() == HttpStatusCode.OK)
-    {
-        return Results.Ok();
-    }
-
-    return Results.BadRequest();
+    if (!(api.AddRandomFact() == HttpStatusCode.OK)) return Results.BadRequest();
+   
+    return Results.Ok();
 });
 
 app.MapPut("/UpdateFact/", (FactAPI api, FactData factData, int id) =>
 {
-    if (api.UpdateFact(factData, id) == HttpStatusCode.OK)
-    {
-        return Results.Ok();
-    }
-
-    return Results.BadRequest();
+    if (!(api.UpdateFact(factData, id) == HttpStatusCode.OK)) return Results.BadRequest();
+    
+    return Results.Ok();
 });
 
 app.MapDelete("/DeleteFactById/", (FactAPI api, int id) =>
 {
-    if (api.DeleteFact(id) == HttpStatusCode.OK)
-    {
-        return Results.Ok();
-    }
-
-    return Results.BadRequest();
+    if (!(api.DeleteFact(id) == HttpStatusCode.OK)) return Results.BadRequest();
+    
+    return Results.Ok();
 });
 
 app.Run();
-
-
-
-
-

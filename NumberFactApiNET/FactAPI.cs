@@ -10,14 +10,16 @@ public class FactAPI
 
     private readonly HttpClient _httpClient = new();
 
-    public FactAPI(HttpClient httpClient)
+    public FactAPI()
     {
-
+        _httpClient.BaseAddress = new("http://localhost:3000");
     }
 
     public async Task<FactData[]> GetAll()
     {
-        var response = await _httpClient.GetAsync("http://localhost:3000/ShowAllFacts");
+        Uri uri = new(_httpClient.BaseAddress, "/ShowAllFacts");
+
+        var response = await _httpClient.GetAsync(uri);
 
         if (!response.IsSuccessStatusCode)
         {
