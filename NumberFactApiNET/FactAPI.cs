@@ -19,7 +19,7 @@ public class FactAPI
     {
         Uri uri = new(_httpClient.BaseAddress, "/ShowAllFacts");
 
-        var response = await _httpClient.GetAsync(uri);
+        HttpResponseMessage response = await _httpClient.GetAsync(uri);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -27,12 +27,15 @@ public class FactAPI
         }
 
         string json = await response.Content.ReadAsStringAsync();
+
         return JsonConvert.DeserializeObject<FactData[]>(json);
     }
 
     public async Task<FactData> GetById(int id)
     {
-        var response = await _httpClient.GetAsync("http://localhost:3000/GetFactById/" + id);
+        Uri uri = new(_httpClient.BaseAddress, "/GetFactById/" + id);
+
+        HttpResponseMessage response = await _httpClient.GetAsync(uri);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -40,33 +43,42 @@ public class FactAPI
         }
 
         string json = await response.Content.ReadAsStringAsync();
+
         return JsonConvert.DeserializeObject<FactData>(json);
     }
 
     public HttpStatusCode Add(FactData factData)
     {
-        var response = _httpClient.PostAsJsonAsync("http://localhost:3000/AddFact", factData).Result;
+        Uri uri = new(_httpClient.BaseAddress, "/AddFact");
+
+        HttpResponseMessage response = _httpClient.PostAsJsonAsync(uri, factData).Result;
 
         return response.StatusCode;
     }
 
     public HttpStatusCode AddRandomFact()
     {
-        var response = _httpClient.PostAsync("http://localhost:3000/AddRandomFact", null).Result;
+        Uri uri = new(_httpClient.BaseAddress, "AddRandomFact");
+
+        HttpResponseMessage response = _httpClient.PostAsync(uri, null).Result;
 
         return response.StatusCode;
     }
 
     public HttpStatusCode UpdateFact(FactData factData, int id)
     {
-        var response = _httpClient.PutAsJsonAsync("http://localhost:3000/UpdateFact/" + id, factData).Result;
+        Uri uri = new(_httpClient.BaseAddress, "/UpdateFact" + id);
+
+        HttpResponseMessage response = _httpClient.PutAsJsonAsync(uri, factData).Result;
 
         return response.StatusCode;
     }
 
     public HttpStatusCode DeleteFact(int id)
     {
-        var response = _httpClient.DeleteAsync("http://localhost:3000/DeleteFactById/" + id).Result;
+        Uri uri = new(_httpClient.BaseAddress, "DeleteFactById" + id);
+
+        HttpResponseMessage response = _httpClient.DeleteAsync(uri).Result;
 
         return response.StatusCode;
     }
