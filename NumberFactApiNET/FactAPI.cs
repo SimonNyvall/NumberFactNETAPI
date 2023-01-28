@@ -12,7 +12,7 @@ public class FactAPI
 
     public FactAPI()
     {
-        _httpClient.BaseAddress = new("http://localhost:3000");
+        _httpClient.BaseAddress = new("https://numberfact.azurewebsites.net/");
     }
 
     public async Task<FactData[]> GetAll()
@@ -67,7 +67,7 @@ public class FactAPI
 
     public HttpStatusCode UpdateFact(FactData factData, int id)
     {
-        Uri uri = new(_httpClient.BaseAddress!, "/UpdateFact" + id);
+        Uri uri = new(_httpClient.BaseAddress!, "/UpdateFact/" + id);
 
         HttpResponseMessage response = _httpClient.PutAsJsonAsync(uri, factData).Result;
 
@@ -76,7 +76,7 @@ public class FactAPI
 
     public HttpStatusCode DeleteFact(int id)
     {
-        Uri uri = new(_httpClient.BaseAddress!, "/DeleteFactById" + id);
+        Uri uri = new(_httpClient.BaseAddress!, "/DeleteFactById/" + id);
 
         HttpResponseMessage response = _httpClient.DeleteAsync(uri).Result;
 

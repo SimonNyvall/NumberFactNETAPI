@@ -7,7 +7,6 @@ public static class APIEndpoints
 {
     public static void MapAPIEndpoints(this WebApplication app)
     {
-
         app.MapGet("/ShowAllFacts", async (FactAPI api) =>
         {
             FactData[] factsObject = await api.GetAll();
