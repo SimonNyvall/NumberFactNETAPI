@@ -14,7 +14,7 @@ public static class APIEndpoints
             return Results.Ok(factsObject);
         });
 
-        app.MapGet("/GetFactById/", async (FactAPI api, int id) =>
+        app.MapGet("/GetFactById/", async (FactAPI api, string id) =>
         {
             FactData factObject = await api.GetById(id);
 
@@ -35,14 +35,14 @@ public static class APIEndpoints
             return Results.Ok();
         });
 
-        app.MapPut("/UpdateFact/", (FactAPI api, FactData factData, int id) =>
+        app.MapPut("/UpdateFact/", (FactAPI api, FactData factData, string id) =>
         {
             if (!(api.UpdateFact(factData, id) == HttpStatusCode.OK)) return Results.BadRequest();
 
             return Results.Ok();
         });
 
-        app.MapDelete("/DeleteFactById/", (FactAPI api, int id) =>
+        app.MapDelete("/DeleteFactById/", (FactAPI api, string id) =>
         {
             if (!(api.DeleteFact(id) == HttpStatusCode.OK)) return Results.BadRequest();
 

@@ -28,10 +28,10 @@ public class FactAPI
 
         string json = await response.Content.ReadAsStringAsync();
 
-        return JsonConvert.DeserializeObject<FactData[]>(json);
+        return JsonConvert.DeserializeObject<FactData[]>(json)!;
     }
 
-    public async Task<FactData> GetById(int id)
+    public async Task<FactData> GetById(string id)
     {
         Uri uri = new(_httpClient.BaseAddress!, "/GetFactById/" + id);
 
@@ -65,7 +65,7 @@ public class FactAPI
         return response.StatusCode;
     }
 
-    public HttpStatusCode UpdateFact(FactData factData, int id)
+    public HttpStatusCode UpdateFact(FactData factData, string id)
     {
         Uri uri = new(_httpClient.BaseAddress!, "/UpdateFact/" + id);
 
@@ -74,7 +74,7 @@ public class FactAPI
         return response.StatusCode;
     }
 
-    public HttpStatusCode DeleteFact(int id)
+    public HttpStatusCode DeleteFact(string id)
     {
         Uri uri = new(_httpClient.BaseAddress!, "/DeleteFactById/" + id);
 

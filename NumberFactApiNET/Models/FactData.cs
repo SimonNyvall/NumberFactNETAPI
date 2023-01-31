@@ -1,3 +1,3 @@
 ﻿namespace NumberFactApiNET.Models;
 
-public record FactData(int id, string number, string factMessage);
+public record FactData(string _id, string number, string factMessage, int __v);
