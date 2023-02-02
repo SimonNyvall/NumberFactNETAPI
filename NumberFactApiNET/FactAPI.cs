@@ -10,9 +10,10 @@ public class FactAPI
 
     private readonly HttpClient _httpClient = new();
 
-    public FactAPI()
+    public FactAPI() /*http://localhost:3000/*/
     {
-        _httpClient.BaseAddress = new("https://numberfact.azurewebsites.net/");
+    //https://numberfact.azurewebsites.net/
+        _httpClient.BaseAddress = new("http://localhost:3000/");
     }
 
     public async Task<FactData[]> GetAll()
