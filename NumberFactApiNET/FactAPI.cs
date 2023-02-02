@@ -6,17 +6,13 @@ namespace NumberFactApiNET;
 
 public class FactAPI
 {
-    private readonly Dictionary<int, FactData> factDataList = new();
-
     private readonly HttpClient _httpClient = new();
-
-    public FactAPI() /*http://localhost:3000/*/
+    public FactAPI()
     {
-    //https://numberfact.azurewebsites.net/
-        _httpClient.BaseAddress = new("http://localhost:3000/");
+        _httpClient.BaseAddress = new("https://numberfact.azurewebsites.net/");
     }
 
-    public async Task<FactData[]> GetAll()
+    public async Task<FactData[]> GetAllFacts()
     {
         Uri uri = new(_httpClient.BaseAddress!, "/ShowAllFacts");
 
@@ -32,7 +28,7 @@ public class FactAPI
         return JsonConvert.DeserializeObject<FactData[]>(json)!;
     }
 
-    public async Task<FactData> GetById(string id)
+    public async Task<FactData> GetFactById(string id)
     {
         Uri uri = new(_httpClient.BaseAddress!, "/GetFactById/" + id);
 
@@ -48,7 +44,7 @@ public class FactAPI
         return JsonConvert.DeserializeObject<FactData>(json)!;
     }
 
-    public HttpStatusCode Add(FactData factData)
+    public HttpStatusCode AddFact(FactData factData)
     {
         Uri uri = new(_httpClient.BaseAddress!, "/AddFact");
 

@@ -9,21 +9,21 @@ public static class APIEndpoints
     {
         app.MapGet("/ShowAllFacts", async (FactAPI api) =>
         {
-            FactData[] factsObject = await api.GetAll();
+            FactData[] factsObject = await api.GetAllFacts();
 
             return Results.Ok(factsObject);
         });
 
         app.MapGet("/GetFactById/", async (FactAPI api, string id) =>
         {
-            FactData factObject = await api.GetById(id);
+            FactData factObject = await api.GetFactById(id);
 
             return Results.Ok(factObject);
         });
 
         app.MapPost("/AddFact", (FactAPI api, FactData factdata) =>
         {
-            if (!(api.Add(factdata) == HttpStatusCode.OK)) return Results.BadRequest();
+            if (!(api.AddFact(factdata) == HttpStatusCode.Created)) return Results.BadRequest();
 
             return Results.Created("/AddFact", factdata);
         });
